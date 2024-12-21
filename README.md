@@ -10,3 +10,5 @@ This is a simple web-based calculator that calculates the number of push-ups a p
 ## Demo
 
 You can view the live page here: https://mraziiiik.github.io/KDAPushUpCalculator/
+
+![alt text](https://github.com/Mraziiiik/KDAPushUpCalculator/blob/main/properpushup.webp?raw=true)

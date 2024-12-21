@@ -75,6 +75,11 @@
         .settings-group input {
             width: 45%;
         }
+        #pushupImage {
+            display: none;
+            margin-top: 20px;
+            justify-self:center;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +122,9 @@
 
         <div class="result" id="result"></div>
         <div class="error" id="error"></div>
+
+        <!-- Hidden image element that will be shown after calculation -->
+        <img id="pushupImage" src="properpushup.webp" alt="Proper Push-Up">
     </div>
 
     <script>
@@ -133,6 +141,7 @@
             if (kills === 0 && deaths === 0 && assists === 0) {
                 document.getElementById('error').textContent = "Please fill in all values before calculating.";
                 document.getElementById('result').textContent = "";
+                document.getElementById('pushupImage').style.display = 'none';
                 return;
             } else {
                 document.getElementById('error').textContent = "";
@@ -142,6 +151,9 @@
 
             document.getElementById('result').textContent = 
                 `You need to do ${Math.max(totalPushups, 0)} push-ups!`;
+
+            // Show the image after calculation
+            document.getElementById('pushupImage').style.display = 'block';
         }
     </script>
 </body>

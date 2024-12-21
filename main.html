@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDA Push-Up Calculator</title>
+    <style>
+        html {
+            background: url('bg.png') no-repeat center center fixed, linear-gradient(rgba(51, 51, 51, 0.9), rgba(51, 51, 51, 0.9));
+            background-size: contain;
+            background-color: #333;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .header {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .calculator {
+            max-width: 50%;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .input-group input {
+            width: 45%;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .error {
+            color: red;
+            font-size: 1.2em;
+        }
+        .settings-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .settings-group input {
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>💪 KDA Push-Up Calculator 🏋️‍♂️</h1>
+    </div>
+    <div class="calculator">
+        <div class="input-group">
+            <div>
+                <label for="kills">Kills:</label> <br>
+                <input type="number" id="kills" placeholder="Enter kills">
+            </div>
+            <div>
+                <label for="deaths">Deaths:</label> <br>
+                <input type="number" id="deaths" placeholder="Enter deaths">
+            </div>
+            <div>
+                <label for="assists">Assists:</label> <br>
+                <input type="number" id="assists" placeholder="Enter assists">
+            </div>
+        </div>
+
+        <h3>Settings</h3>
+        <div class="settings-group">
+            <div>
+                <label for="pushupsPerKill">Push-Ups deducted per Kill:</label> <br>
+                <input type="number" id="pushupsPerKill" placeholder="Push-Ups deducted per kill" value="2">
+            </div>
+            <div>
+                <label for="pushupsPerDeath">Push-Ups per Death:</label> <br>
+                <input type="number" id="pushupsPerDeath" placeholder="Push-Ups for each death" value="3">
+            </div>
+            <div>
+                <label for="pushupsPerAssist">Push-Ups deducted per Assist:</label> <br>
+                <input type="number" id="pushupsPerAssist" placeholder="Push-Ups deducted per assist" value="1">
+            </div>
+        </div>
+
+        <button onclick="calculatePushups()">Calculate Push-Ups</button>
+
+        <div class="result" id="result"></div>
+        <div class="error" id="error"></div>
+    </div>
+
+    <script>
+        function calculatePushups() {
+            const kills = parseInt(document.getElementById('kills').value) || 0;
+            const deaths = parseInt(document.getElementById('deaths').value) || 0;
+            const assists = parseInt(document.getElementById('assists').value) || 0;
+
+            const pushupsPerDeath = parseInt(document.getElementById('pushupsPerDeath').value) || 0;
+            const pushupsPerKill = parseInt(document.getElementById('pushupsPerKill').value) || 0;
+            const pushupsPerAssist = parseInt(document.getElementById('pushupsPerAssist').value) || 0;
+
+            // Check if any of the main inputs are missing
+            if (kills === 0 && deaths === 0 && assists === 0) {
+                document.getElementById('error').textContent = "Please fill in all values before calculating.";
+                document.getElementById('result').textContent = "";
+                return;
+            } else {
+                document.getElementById('error').textContent = "";
+            }
+
+            const totalPushups = (deaths * pushupsPerDeath) - (kills * pushupsPerKill) - (assists * pushupsPerAssist);
+
+            document.getElementById('result').textContent = 
+                `You need to do ${Math.max(totalPushups, 0)} push-ups!`;
+        }
+    </script>
+</body>
+</html>
